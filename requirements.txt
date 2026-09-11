@@ -1,0 +1,9 @@
+# EcoSort runtime dependencies
+# Keras runs with the PyTorch backend in this project.
+keras>=3.10,<4
+numpy>=2.0,<3
+opencv-python>=4.10,<5
+pillow>=11,<13
+requests>=2.32,<3
+streamlit>=1.45,<2
+torch>=2.6,<3
