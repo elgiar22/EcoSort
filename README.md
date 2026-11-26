@@ -25,11 +25,12 @@ flowchart LR
     B --> C[Keras EfficientNetB3 classifier]
     C --> D[Confidence / reject logic]
     D --> E[Waste route]
-    E --> F[Dashboard API]
+    E -->|Stable supported route in local-camera mode| F[Dashboard API]
     F --> G[Live dashboard]
+    E -->|Single-image test| H[Streamlit preview]
 ```
 
-In local-camera mode, EcoSort additionally smooths predictions and requires a **3-of-5 vote** before publishing a supported route. This reduces unstable frame-to-frame decisions.
+The Streamlit tester displays a single-image prediction. Local-camera mode smooths predictions and requires a **3-of-5 vote** before publishing a supported route. Low-confidence and unsupported classes stay out of the dashboard feed.
 
 ## Supported model classes
 
@@ -129,9 +130,12 @@ The default dashboard base URL is configured in `apps/local_camera.py` and can b
 
 The repository contains the **AI classification and software routing prototype**. A physical actuator/bin-routing mechanism is not included here. The software output can be integrated later with a microcontroller, motors, or another mechanical sorting mechanism.
 
+## Evaluation scope
+
+The repository ships sample images for a manual smoke test. See the [Model Card](MODEL_CARD.md) for class order, routing, the confidence threshold and evaluation limitations. The repository provides no formal benchmark or documented dataset, and the threshold is a routing rule with no calibration guarantee.
+
 ## Notes
 
 - The Keras model uses the **PyTorch backend** (`KERAS_BACKEND=torch`).
 - The model file is about 79 MiB, so cloning may take a little longer than a typical code-only repository.
 - No API keys, passwords, or private tokens are required by the current code.
-- See [`MODEL_CARD.md`](MODEL_CARD.md) for model-specific details and limitations.
